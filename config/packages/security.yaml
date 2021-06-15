@@ -1,0 +1,45 @@
+security:
+    password_hashers:
+        App\Entity\User:
+            # Use native password hasher, which auto-selects the best
+            # possible hashing algorithm (starting from Symfony 5.3 this is "bcrypt")
+            algorithm: auto
+    # https://symfony.com/doc/current/security/experimental_authenticators.html
+    enable_authenticator_manager: true
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        our_users:
+            entity: { class: App\Entity\User, property: email }
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER, ROLE_ADMIN_ORDER]
+        ROLE_USER: ROLE_USER
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        secured_area:
+            entry_point: App\Security\LoginFormAuthenticator
+            lazy: true
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800
+                path: /
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            form_login:
+                login_path: /login
+                check_path: /login
+            logout:
+                path: /logout
+                target: /
+            switch_user: ~
+
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
