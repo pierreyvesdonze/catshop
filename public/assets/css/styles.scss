@@ -1,0 +1,60 @@
+/*
+***********************************
+COLORS
+***********************************
+*/
+:root {
+    --primary-color: #ffffff;
+    --secondary-color: #ffd800;
+    --tertiary-color: #1b1b1b;
+    --tertiary-hover-color: #4e4e49;
+    --background-color: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgba(240, 198, 228, 1) 100%);
+    --background-color-2: #7aa8e49c;
+}
+
+/*
+***********************************
+TEXTS
+***********************************
+*/
+.p-justify {
+    text-align: justify;
+    line-height: 1.7em;
+}
+
+.title-shadow {
+    text-shadow: 3px 3px 3px black;
+}
+
+/*
+***********************************
+CONTAINERS
+***********************************
+*/
+
+.parallax {
+    background-color: var(--secondary-color);
+    transition: .2s ease-in-out;
+}
+
+.parallax-container:hover .parallax {
+        opacity: .5;
+}
+
+.page-footer {
+    background-color: var(--tertiary-color);
+}
+
+/*
+***********************************
+BUTTONS
+***********************************
+*/
+.btn,
+.btn-small,
+.btn-large {
+    background-color: var(--tertiary-color);
+    &:hover {
+        background-color: var(--tertiary-hover-color);
+    }
+}
