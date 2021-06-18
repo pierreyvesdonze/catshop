@@ -7,8 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.png') }}" />
     <title>{% block title %}Welcome!{% endblock %}</title>
-    {# Run `composer require symfony/webpack-encore-bundle`
-    and uncomment the following Encore helpers to start using Symfony UX #}
+    
+    {# FONTS #}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Viaoda+Libre&display=swap" rel="stylesheet">
     {% block stylesheets %}
 
     {#{{ encore_entry_link_tags('app') }}#}
@@ -30,6 +32,8 @@
 </head>
 
 <body>
+    <!-- NAVBAR -->
+    {% include('nav/nav.html.twig') %}
     {% block body %}{% endblock %}
 </body>
 
