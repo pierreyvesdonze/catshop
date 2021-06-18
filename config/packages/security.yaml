@@ -21,10 +21,10 @@ security:
         secured_area:
             entry_point: App\Security\LoginFormAuthenticator
             lazy: true
-            remember_me:
-                secret: '%kernel.secret%'
-                lifetime: 604800
-                path: /
+            # remember_me:
+            #     secret: '%kernel.secret%'
+            #     lifetime: 604800
+            #     path: /
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator

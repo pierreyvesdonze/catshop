@@ -28,13 +28,22 @@ TEXTS
 
 /*
 ***********************************
+NAVS
+***********************************
+*/
+.nav-wrapper {
+  background-color: var(--primary-color);
+}
+
+/*
+***********************************
 CONTAINERS
 ***********************************
 */
 .parallax {
   background-color: var(--secondary-color);
-  -webkit-transition: .2s ease-in-out;
-  transition: .2s ease-in-out;
+  -webkit-transition: .4s ease-in-out;
+  transition: .4s ease-in-out;
 }
 
 .parallax-container:hover .parallax {

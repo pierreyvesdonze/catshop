@@ -1,0 +1,31 @@
+<ul id="dropdown-user" class="dropdown-content">
+    {% if app.user %}
+    <li><a href="{{ path('user_profile') }}">My account</a></li>
+    <li class="divider"></li>
+    <li><a href="{{ path('app_logout') }}">Logout</a></li>
+    {% else %}
+    <li><a href="{{ path('app_login') }}">Login</a></li>
+    <li class="divider"></li>
+    <li><a href="{{ path('new') }}">Register</a></li>
+    {% endif %}
+</ul>
+<nav>
+    <div class="nav-wrapper">
+        <a href="#!" class="brand-logo"><img src="{{ asset('assets/images/logo-small.png') }}"></a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="sass.html">Sass</a></li>
+            <li><a href="badges.html">Components</a></li>
+            <!-- Dropdown Trigger -->
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown-user"><i
+                        class="material-icons right">account_circle</i></a></li>
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="sass.html">Sass</a></li>
+    <li><a href="badges.html">Components</a></li>
+    <li><a href="collapsible.html">Javascript</a></li>
+    <li><a href="mobile.html">Mobile</a></li>
+</ul>

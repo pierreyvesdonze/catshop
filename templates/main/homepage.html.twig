@@ -1,21 +1,8 @@
 {% extends "base.html.twig" %}
 {% block body %}
 
-<nav class="white" role="navigation">
-    <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo">
-            <img src="{{ asset('assets/images/logo-small.png') }}">
-        </a>
-        <ul class="right hide-on-med-and-down">
-            <li><a href="#">Navbar Link</a></li>
-        </ul>
-
-        <ul id="nav-mobile" class="sidenav">
-            <li><a href="#">Navbar Link</a></li>
-        </ul>
-        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    </div>
-</nav>
+<!-- NAVBAR -->
+{% include('nav/nav.html.twig') %}
 
 <div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
