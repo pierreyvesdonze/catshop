@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +27,17 @@ class Cart
      * @ORM\JoinColumn(nullable=false)
      */
     private $articles;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="carts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    public function __toString()
+    {
+        return $this->user->getUsername();
+    }
 
     public function getId(): ?int
     {
@@ -70,6 +82,18 @@ class Cart
                 $article->setCart(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

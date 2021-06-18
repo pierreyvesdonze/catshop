@@ -70,6 +70,16 @@ class User implements UserInterface
      */
     private $town;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="user")
+     */
+    private $carts;
+
+    public function __construct()
+    {
+        $this->carts = new ArrayCollection();
+    }
+
     public function __toString()
     {
         return $this->username;
@@ -231,6 +241,36 @@ class User implements UserInterface
     public function setTown(string $town): self
     {
         $this->town = $town;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cart[]
+     */
+    public function getCarts(): Collection
+    {
+        return $this->carts;
+    }
+
+    public function addCart(Cart $cart): self
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts[] = $cart;
+            $cart->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(Cart $cart): self
+    {
+        if ($this->carts->removeElement($cart)) {
+            // set the owning side to null (unless already changed)
+            if ($cart->getUser() === $this) {
+                $cart->setUser(null);
+            }
+        }
 
         return $this;
     }

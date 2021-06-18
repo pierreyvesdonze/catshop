@@ -49,11 +49,17 @@ class UserController extends AbstractController
 
             $role = $roleRepository->findOneByRoleString('ROLE_USER');
             $user->setRole($role);
+
+            // Associate a cart to new User
+            $cart = new Cart;
+            $cart->setIsValid(false);
+            $user->addCart($cart);
             
             $this->em->persist($user);
+            $this->em->persist($cart);
             $this->em->flush();
 
-            $this->addFlash('success', 'Vous êtes enregistré. Vous pouvez désormais vous connecter.');
+            $this->addFlash('success', 'Welcome' . $user->getUsername . ', thanks for registration. You can loggin now !');
 
             return $this->redirectToRoute('app_login');
         }
