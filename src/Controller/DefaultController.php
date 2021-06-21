@@ -16,4 +16,13 @@ class DefaultController extends AbstractController
     {
         return $this->render('main/homepage.html.twig');
     }
+
+
+    /**
+     * @Route("/pouet", name="pouet")
+     */
+    public function pouet(): Response
+    {
+        return $this->render('main/pouet.html.twig');
+    }
 }

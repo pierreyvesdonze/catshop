@@ -8,6 +8,7 @@ COLORS
     --secondary-color: #ffd800;
     --tertiary-color: #1b1b1b;
     --tertiary-hover-color: #4e4e49;
+    --breadcrumb-current-color: #ff5169;
 }
 
 /*
@@ -20,8 +21,13 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+.viaoda-font
+{
     font-family: "Viaoda Libre", cursive;
+}
+.viaoda-font {
+    font-size: 1.6em;
 }
 .p-justify {
     text-align: justify;
@@ -34,13 +40,20 @@ h6 {
 
 /*
 ***********************************
-NAVS
+NAVS & BREADCRUMBS
 ***********************************
 */
 .nav-wrapper {
     background-color: var(--primary-color);
 }
 
+.breadcrumb {
+    color: var(--tertiary-color);
+}
+
+.breadcrumb:last-child {
+    color: var(--breadcrumb-current-color)!important;
+}
 /*
 ***********************************
 LOGO

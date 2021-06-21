@@ -59,7 +59,7 @@ class UserController extends AbstractController
             $this->em->persist($cart);
             $this->em->flush();
 
-            $this->addFlash('success', 'Welcome' . $user->getUsername . ', thanks for registration. You can loggin now !');
+            $this->addFlash('success', 'Welcome' . $user->getUsername() . ', thanks for registration. You can loggin now !');
 
             return $this->redirectToRoute('app_login');
         }

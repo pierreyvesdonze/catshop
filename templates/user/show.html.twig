@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+
+{# Breadcrumb #}
+<nav>
+    <div class="nav-wrapper">
+        <div class="col s12">
+            <a href="#!" class="breadcrumb">First</a>
+            <a href="#!" class="breadcrumb">Second</a>
+            <a href="#!" class="breadcrumb">Third</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="s12 center">
+
+            <h1>My Profile</h1>
+            <ul>
+                <li class="viaoda-font">Username : {{ user.username|capitalize }}</li>
+                <li class="viaoda-font">Email : {{ user.email }}</li>
+                <li class="viaoda-font">Phone : {{ user.phoneNumber }}</li>
+                <li class="viaoda-font">Street address : {{ user.numberStreetAddress ~ ' ' ~ user.streetAddress }}</li>
+                <li class="viaoda-font">Postal code : {{ user.postalCode }}</li>
+                <li class="viaoda-font">Town : {{ user.town }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
