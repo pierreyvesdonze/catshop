@@ -39,6 +39,13 @@ h6,
   text-shadow: 3px 3px 3px black;
 }
 
+* {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
 /*
 ***********************************
 NAVS & BREADCRUMBS
@@ -72,12 +79,22 @@ CONTAINERS
   transition: 0.4s ease-in-out;
 }
 
-.parallax-container:hover .parallax {
-  opacity: 0.5;
-}
-
 .page-footer {
   background-color: var(--tertiary-color);
+}
+
+.flex-cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.custom-col {
+  width: 300px;
 }
 
 /*
@@ -89,12 +106,48 @@ BUTTONS
 .btn-small,
 .btn-large {
   background-color: var(--tertiary-color);
+  -webkit-box-shadow: 3px 3px 4px 3px #000000a6;
+          box-shadow: 3px 3px 4px 3px #000000a6;
 }
 
 .btn:hover,
 .btn-small:hover,
 .btn-large:hover {
   background-color: var(--tertiary-hover-color);
+}
+
+a.button {
+  background: #ECECEC;
+  border-radius: 15px;
+  padding: 10px 20px;
+  display: block;
+  font-family: arial;
+  font-weight: bold;
+  color: #7f7f7f;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #fff;
+  border: 1px solid #a7a7a7;
+  width: 145px;
+  margin: 0px auto !important;
+  -webkit-box-shadow: 0px 2px 1px white inset, 0px -2px 8px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 2px 1px white inset, 0px -2px 8px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);
+  -webkit-transition: box-shadow 0.5s;
+}
+
+a.button i {
+  float: right;
+  margin-top: 2px;
+}
+
+a.button:hover {
+  -webkit-box-shadow: 0px 2px 1px white inset, 0px -2px 20px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 2px 1px white inset, 0px -2px 20px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);
+}
+
+a.button:active {
+  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset, 0px -2px 20px white, 0px 1px 5px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset, 0px -2px 20px white, 0px 1px 5px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.1);
+  background: -webkit-linear-gradient(top, #d1d1d1 0%, #ECECEC 100%);
 }
 
 /*
