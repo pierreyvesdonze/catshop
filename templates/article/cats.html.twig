@@ -1,0 +1,62 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="col s12 center">
+                <h3><i class="mdi-content-send black-text"></i></h3>
+
+                {# CATS CARDS #}
+                <h4>Our cats</h4>
+                <div class="row">
+                    <p class="light center">
+                        <ul>
+                            <li>
+                                Free worldwide shipping
+                            </li>
+                            <li>
+                                14-days return policy
+                            </li>
+                            <li>
+                                Life warranty
+                            </li>
+                        </ul>
+                    </p>
+                    <div class="flex-cards">
+                        {% for article in articles %}
+                        <div class="custom-col">
+
+                            <div class="card">
+                                <a href="{{ path('article_show', {'id':article.id}) }}">
+                                    <div class="card-image waves-effect waves-block waves-light">
+                                        <img src="{{ article.image }}">
+                                    </div>
+                                </a>
+                                <div class="card-content">
+                                    <span class="card-title activator grey-text text-darken-4">{{ article.name }}<i
+                                            class="material-icons right">more_vert</i></span>
+                                    <span class="card-title activator grey-text text-darken-4">{{ article.price }}
+                                        €</span>
+                                    <p><a class="button" href="#"><i class="material-icons right">shopping_cart</i>Buy
+                                            now</a></p>
+                                </div>
+                                <div class="card-reveal">
+                                    <span class="card-title grey-text text-darken-4">{{ article.name }}<i
+                                            class="material-icons right">close</i></span>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi consequatur porro
+                                        voluptas! Inventore minima id sunt dolorum molestiae, quos ea aliquam in eius
+                                        sapiente, omnis excepturi similique, saepe eligendi perferendis!</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

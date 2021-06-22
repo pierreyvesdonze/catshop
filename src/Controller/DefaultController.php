@@ -21,13 +21,4 @@ class DefaultController extends AbstractController
             'articles' => $articles
         ]);
     }
-
-
-    /**
-     * @Route("/pouet", name="pouet")
-     */
-    public function pouet(): Response
-    {
-        return $this->render('main/pouet.html.twig');
-    }
 }

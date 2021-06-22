@@ -11,14 +11,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/cats/show", name="articles")
+     * @Route("/cats", name="articles")
      */
     public function cats(ArticleRepository $articleRepository): Response
     {
-        $cats = $articleRepository->findAll();
+        $articles = $articleRepository->findAll();
 
         return $this->render('article/cats.html.twig', [
-            'cats' => $cats,
+            'articles' => $articles,
         ]);
     }
 
