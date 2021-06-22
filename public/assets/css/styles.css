@@ -1,5 +1,10 @@
 /*
 ***********************************
+MEDIA QUERIES
+***********************************
+*/
+/*
+***********************************
 COLORS
 ***********************************
 */
@@ -68,34 +73,6 @@ NAVS & BREADCRUMBS
 LOGO
 ***********************************
 
-/*
-***********************************
-CONTAINERS
-***********************************
-*/
-.parallax {
-  background-color: var(--secondary-color);
-  -webkit-transition: 0.4s ease-in-out;
-  transition: 0.4s ease-in-out;
-}
-
-.page-footer {
-  background-color: var(--tertiary-color);
-}
-
-.flex-cards {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-}
-
-.custom-col {
-  width: 300px;
-}
 
 /*
 ***********************************
@@ -117,7 +94,7 @@ BUTTONS
 }
 
 a.button {
-  background: #ECECEC;
+  background: #ececec;
   border-radius: 15px;
   padding: 10px 20px;
   display: block;
@@ -147,7 +124,98 @@ a.button:hover {
 a.button:active {
   -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset, 0px -2px 20px white, 0px 1px 5px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.1);
           box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset, 0px -2px 20px white, 0px 1px 5px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.1);
-  background: -webkit-linear-gradient(top, #d1d1d1 0%, #ECECEC 100%);
+  background: -webkit-linear-gradient(top, #d1d1d1 0%, #ececec 100%);
+}
+
+/*
+***********************************
+CONTAINERS
+***********************************
+*/
+.parallax {
+  background-color: var(--secondary-color);
+  -webkit-transition: 0.4s ease-in-out;
+  transition: 0.4s ease-in-out;
+}
+
+.page-footer {
+  background-color: var(--tertiary-color);
+}
+
+.flex-cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.custom-col {
+  width: 300px;
+}
+
+.article-show {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+  .article-show {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 576px) {
+  .article-show {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.article-right,
+.article-left {
+  width: 50%;
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+  .article-right,
+  .article-left {
+    width: 100%;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 576px) {
+  .article-right,
+  .article-left {
+    width: 100%;
+  }
+}
+
+.article-right {
+  height: 600px;
+  overflow-y: scroll;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-right: 5em;
 }
 
 /*

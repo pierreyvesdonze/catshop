@@ -86,25 +86,28 @@
         <div class="row">
             <div class="col s12 center">
                 <h3><i class="mdi-content-send black-text"></i></h3>
+
+                {# CATS CARDS #}
                 <h4>Our best cats</h4>
                 <div class="row">
                     <div class="flex-cards">
-
+                    {% for article in articles %}
                         <div class="custom-col">
+                            
                             <div class="card">
-                                <a href="#">
+                                <a href="{{ path('article_show', {'id':article.id}) }}">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                        <img src="{{ asset('assets/images/garfield.png') }}">
+                                        <img src="{{ article.image }}">
                                     </div>
                                 </a>
                                 <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-4">Garfield<i
+                                    <span class="card-title activator grey-text text-darken-4">{{ article.name }}<i
                                             class="material-icons right">more_vert</i></span>
-                                    <p><a class="button" href="#"><i class="material-icons right">shopping_cart</i>Buy
-                                            now</a></p>
+                                            <span class="card-title activator grey-text text-darken-4">{{ article.price }} €</span>
+                                    <p><a class="button" href="#"><i class="material-icons right">shopping_cart</i>Buy now</a></p>
                                 </div>
                                 <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4">Garfield<i
+                                    <span class="card-title grey-text text-darken-4">{{ article.name }}<i
                                             class="material-icons right">close</i></span>
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi consequatur porro
                                         voluptas! Inventore minima id sunt dolorum molestiae, quos ea aliquam in eius
@@ -112,56 +115,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="custom-col">
-                            <div class="card">
-                                <a href="#">
-                                    <div class="card-image waves-effect waves-block waves-light">
-                                        <img src="{{ asset('assets/images/grumpy.jpg') }}">
-                                    </div>
-                                </a>
-                                <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-4">Grumpy<i
-                                            class="material-icons right">more_vert</i></span>
-                                    <p><a class="button" href="#"><i class="material-icons right">shopping_cart</i>Buy
-                                            now</a></p>
-                                </div>
-                                <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4">Grumpy<i
-                                            class="material-icons right">close</i></span>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi consequatur porro
-                                        voluptas! Inventore
-                                        minima id sunt dolorum molestiae, quos ea aliquam in eius sapiente, omnis
-                                        excepturi similique, saepe
-                                        eligendi perferendis!</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="custom-col">
-                            <div class="card">
-                                <a href="#">
-                                    <div class="card-image waves-effect waves-block waves-light">
-                                        <img src="{{ asset('assets/images/tom-cat.png') }}">
-                                    </div>
-                                </a>
-                                <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-4">Tom<i
-                                            class="material-icons right">more_vert</i></span>
-                                    <p><a class="button" href="#"><i class="material-icons right">shopping_cart</i>Buy
-                                            now</a></p>
-                                </div>
-                                <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4">Tom<i
-                                            class="material-icons right">close</i></span>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi consequatur porro
-                                        voluptas! Inventore
-                                        minima id sunt dolorum molestiae, quos ea aliquam in eius sapiente, omnis
-                                        excepturi similique, saepe
-                                        eligendi perferendis!</p>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
 
                     </div>
                 </div>
@@ -216,41 +170,4 @@
     </div>
 </div>
 
-<footer class="page-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col l6 s12">
-                <h5 class="white-text">Company Bio</h5>
-                <p class="grey-text text-lighten-4 p-justify">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Obcaecati, quibusdam! Dolorem optio atque quidem maxime sit sed nostrum nemo quibusdam! Aspernatur
-                    deserunt neque exercitationem obcaecati accusamus voluptatibus saepe eaque quas.</p>
-
-
-            </div>
-            <div class="col l3 s12">
-                <h5 class="white-text">Settings</h5>
-                <ul>
-                    <li><a class="white-text" href="#!">Link 1</a></li>
-                    <li><a class="white-text" href="#!">Link 2</a></li>
-                    <li><a class="white-text" href="#!">Link 3</a></li>
-                    <li><a class="white-text" href="#!">Link 4</a></li>
-                </ul>
-            </div>
-            <div class="col l3 s12">
-                <h5 class="white-text">Social</h5>
-                <ul>
-                    <li><a href="#!"><img src="{{ asset('assets/images/instagram.png') }}" alt=""></a></li>
-                    <li><a href="#!"><img src="{{ asset('assets/images/facebook.png') }}" alt=""></a></li>
-                    <li><a href="#!"><img src="{{ asset('assets/images/twitter.png') }}" alt=""></a></li>
-
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="footer-copyright">
-        <div class="container">
-            Css Framework By <a class="black-text text-lighten-3" href="http://materializecss.com">Materialize</a>
-        </div>
-    </div>
-</footer>
 {% endblock %}

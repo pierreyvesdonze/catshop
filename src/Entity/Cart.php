@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Repository\CartRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,16 +25,25 @@ class Cart
     private $isValid;
 
     /**
-     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="cart", cascade={"persist", "remove"}, fetch="EAGER")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $articles;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="carts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Article::class)
+     */
+    private $articles;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $quantity;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
     public function __toString()
     {
@@ -56,6 +67,18 @@ class Cart
         return $this;
     }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Article[]
      */
@@ -68,7 +91,6 @@ class Cart
     {
         if (!$this->articles->contains($article)) {
             $this->articles[] = $article;
-            $article->setCart($this);
         }
 
         return $this;
@@ -76,24 +98,19 @@ class Cart
 
     public function removeArticle(Article $article): self
     {
-        if ($this->articles->removeElement($article)) {
-            // set the owning side to null (unless already changed)
-            if ($article->getCart() === $this) {
-                $article->setCart(null);
-            }
-        }
+        $this->articles->removeElement($article);
 
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getQuantity(): ?int
     {
-        return $this->user;
+        return $this->quantity;
     }
 
-    public function setUser(?User $user): self
+    public function setQuantity(int $quantity): self
     {
-        $this->user = $user;
+        $this->quantity = $quantity;
 
         return $this;
     }

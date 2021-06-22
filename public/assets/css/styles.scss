@@ -1,3 +1,5 @@
+@import "./responsive.scss";
+
 /*
 ***********************************
 COLORS
@@ -25,9 +27,11 @@ h6,
 .viaoda-font {
     font-family: "Viaoda Libre", cursive;
 }
+
 .viaoda-font {
     font-size: 1.6em;
 }
+
 .p-justify {
     text-align: justify;
     line-height: 1.7em;
@@ -62,6 +66,53 @@ NAVS & BREADCRUMBS
 LOGO
 ***********************************
 
+
+/*
+***********************************
+BUTTONS
+***********************************
+*/
+.btn,
+.btn-small,
+.btn-large {
+    background-color: var(--tertiary-color);
+    box-shadow: 3px 3px 4px 3px #000000a6;
+    &:hover {
+        background-color: var(--tertiary-hover-color);
+    }
+}
+
+a.button {
+    background: #ececec;
+    border-radius: 15px;
+    padding: 10px 20px;
+    display: block;
+    font-family: arial;
+    font-weight: bold;
+    color: #7f7f7f;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #fff;
+    border: 1px solid #a7a7a7;
+    width: 145px;
+    margin: 0px auto !important;
+    box-shadow: 0px 2px 1px white inset, 0px -2px 8px white, 0px 2px 5px rgba(0, 0, 0, 0.1),
+        0px 8px 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition: box-shadow 0.5s;
+}
+a.button i {
+    float: right;
+    margin-top: 2px;
+}
+a.button:hover {
+    box-shadow: 0px 2px 1px white inset, 0px -2px 20px white, 0px 2px 5px rgba(0, 0, 0, 0.1),
+        0px 8px 10px rgba(0, 0, 0, 0.1);
+}
+a.button:active {
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset, 0px -2px 20px white, 0px 1px 5px rgba(0, 0, 0, 0.1),
+        0px 2px 10px rgba(0, 0, 0, 0.1);
+    background: -webkit-linear-gradient(top, #d1d1d1 0%, #ececec 100%);
+}
+
 /*
 ***********************************
 CONTAINERS
@@ -87,49 +138,36 @@ CONTAINERS
     width: 300px;
 }
 
-/*
-***********************************
-BUTTONS
-***********************************
-*/
-.btn,
-.btn-small,
-.btn-large {
-    background-color: var(--tertiary-color);
-    box-shadow: 3px 3px 4px 3px #000000a6;
-    &:hover {
-        background-color: var(--tertiary-hover-color);
+.article-show {
+    display: flex;
+    justify-content: space-evenly;
+     @include sm {
+        flex-direction: column;
+    }
+    @include xs {
+        flex-direction: column;
     }
 }
 
-a.button{
-		background: #ECECEC;
-		border-radius: 15px;
-		padding: 10px 20px;
-		display: block;
-		font-family: arial;
-		font-weight: bold;
-		color:#7f7f7f;
-		text-decoration: none;
-		text-shadow:0px 1px 0px #fff;
-		border:1px solid #a7a7a7;
-		width: 145px;
-		margin:0px auto !important;
-		box-shadow: 0px 2px 1px white inset, 0px -2px 8px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);
-		-webkit-transition:box-shadow 0.5s;
-	}
-	a.button i{
-		float: right;
-		margin-top: 2px;
-	}
-	a.button:hover{
-		box-shadow: 0px 2px 1px white inset, 0px -2px 20px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);
-	}
-	a.button:active{
-		box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset, 0px -2px 20px white, 0px 1px 5px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.1);
-		background:-webkit-linear-gradient(top, #d1d1d1 0%,#ECECEC 100%);
-	}
+.article-right,
+.article-left {
+    width: 50%;
+     @include sm {
+        width: 100%;
+    }
+    @include xs {
+         width: 100%;
+    }
+}
 
+.article-right {
+    height: 600px;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding-right: 5em;
+}
 
 /*
 ***********************************

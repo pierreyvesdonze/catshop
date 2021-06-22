@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+{# Breadcrumb #}
+<nav>
+    <div class="nav-wrapper">
+        <div class="col s12">
+            <a href="{{ path('homepage') }}" class="breadcrumb">Home</a>
+            <a href="#!" class="breadcrumb">Cats</a>
+            <a href="#!" class="breadcrumb">{{ article.name }}</a>
+        </div>
+    </div>
+</nav>
+
+{# Article #}
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="article-show">
+                <div class="article-left">
+                    <img src="{{ asset(article.image) }}" alt="cat">
+                </div>
+                <div class="article-right">
+                    <h1 class="header center white-text title-shadow">
+                        {{ article.name }}
+                    </h1>
+                    <h2>{{ article.price }} €</h2>
+                    <p class="light p-justify">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores suscipit similique a fugit
+                        beatae excepturi nostrum ipsum aliquam. Quo repudiandae natus dolore doloribus, quae
+                        necessitatibus velit voluptas sequi a debitis.
+                    </p>
+                    <p><a class="button" href="#">Add to cart</a></p>
+                    <p class="light">
+                        <i class="material-icons left">local_shipping</i>Free worldwide shipping.<br>
+                        <i class="material-icons left">autorenew</i>14-days return policy.
+                        <br>
+                        <i class="material-icons left">enhanced_encryption</i>Life warranty.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

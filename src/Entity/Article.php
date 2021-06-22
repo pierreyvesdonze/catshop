@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,10 +28,14 @@ class Article
     private $price;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Cart::class, inversedBy="articles", fetch="EAGER", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="boolean")
      */
-    private $cart;
+    private $isBestSeller;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
 
     public function getId(): ?int
     {
@@ -61,14 +66,26 @@ class Article
         return $this;
     }
 
-    public function getCart(): ?Cart
+    public function getIsBestSeller(): ?bool
     {
-        return $this->cart;
+        return $this->isBestSeller;
     }
 
-    public function setCart(?Cart $cart): self
+    public function setIsBestSeller(bool $isBestSeller): self
     {
-        $this->cart = $cart;
+        $this->isBestSeller = $isBestSeller;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
