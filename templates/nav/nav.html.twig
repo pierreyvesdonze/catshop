@@ -24,8 +24,13 @@
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
-    <li><a href="sass.html">Sass</a></li>
-    <li><a href="badges.html">Components</a></li>
-    <li><a href="collapsible.html">Javascript</a></li>
-    <li><a href="mobile.html">Mobile</a></li>
+    {% if app.user %}
+    <li><a href="{{ path('user_profile') }}">My account</a></li>
+    <li class="divider"></li>
+    <li><a href="{{ path('app_logout') }}">Logout</a></li>
+    {% else %}
+    <li><a href="{{ path('app_login') }}">Login</a></li>
+    <li class="divider"></li>
+    <li><a href="{{ path('new') }}">Register</a></li>
+    {% endif %}
 </ul>
