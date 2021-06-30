@@ -26,7 +26,7 @@ class Cart
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="carts")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 
@@ -39,6 +39,11 @@ class Cart
      * @ORM\Column(type="smallint")
      */
     private $quantity;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tempUser;
 
     public function __construct()
     {
@@ -111,6 +116,18 @@ class Cart
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getTempUser(): ?string
+    {
+        return $this->tempUser;
+    }
+
+    public function setTempUser(?string $tempUser): self
+    {
+        $this->tempUser = $tempUser;
 
         return $this;
     }

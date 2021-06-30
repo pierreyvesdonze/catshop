@@ -27,7 +27,7 @@
                         {% for article in articles %}
                         <div class="custom-col">
 
-                            <div class="card">
+                            <div class="card article">
                                 <a href="{{ path('article_show', {'id':article.id}) }}">
                                     <div class="card-image waves-effect waves-block waves-light">
                                         <img src="{{ article.image }}">
@@ -38,8 +38,8 @@
                                             class="material-icons right">more_vert</i></span>
                                     <span class="card-title activator grey-text text-darken-4">{{ article.price }}
                                         €</span>
-                                    <p><a class="button" href="#"><i class="material-icons right">shopping_cart</i>Buy
-                                            now</a></p>
+                                    <p><a class="button add-to-cart-btn" href="#" data-id="{{ article.id }}"><i
+                                            class="material-icons right">shopping_cart</i>Buy now</a></p>
                                 </div>
                                 <div class="card-reveal">
                                     <span class="card-title grey-text text-darken-4">{{ article.name }}<i

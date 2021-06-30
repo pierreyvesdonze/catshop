@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="eng">
 
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.png') }}" />
     <title>{% block title %}Welcome!{% endblock %}</title>
-    
+
     {# FONTS #}
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Viaoda+Libre&display=swap" rel="stylesheet">
@@ -22,22 +22,29 @@
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     {% endblock %}
 
-    {% block javascripts %}
-    {#{{ encore_entry_script_tags('app') }}#}
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="{{ asset('assets/js/materialize.js') }}"></script>
-    <script src="{{ asset('assets/js/init.js') }}"></script>
-    <script src="{{ asset('assets/js/app.js') }}"></script>
-    {% endblock %}
 </head>
 
 <body>
     <!-- NAVBAR -->
     {% include('nav/nav.html.twig') %}
-    
+
     {% block body %}{% endblock %}
     <!-- FOOTER -->
     {% include('footer/footer.html.twig') %}
+
+    {% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/js/materialize.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
+    integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q=="
+    crossorigin="anonymous"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script src="{{ asset('assets/js/init.js') }}"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+    {# {{ encore_entry_script_tags('app') }} #}
+    {% endblock %}
 </body>
 
 </html>
