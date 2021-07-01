@@ -26,7 +26,7 @@
                         </td>
                         <td class="total-item">{{ item.article.price * item.quantity }} €</td>
                         <td>
-                            <a href="#" class="button remove-from-cart-btn" data-id="{{ item.article.id }}"> Delete</a>
+                            <a href="#" class="remove-from-cart-btn" data-id="{{ item.article.id }}"><i class="material-icons">delete_forever</i></a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -36,7 +36,7 @@
                         <td class="bold">Total : </td>
                         <td></td>
                         <td></td>
-                        <td class="net-total">{{ total }} €</td>
+                        <td class="bold net-total">{{ total }} €</td>
                     </tr>
                 </tfoot>
             </table>
