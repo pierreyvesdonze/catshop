@@ -12,9 +12,10 @@ var app = {
        * L I S T E N E R S
        * *****************************
        */
-        
+
         $('.add-to-cart-btn').click(app.addToCart);
         $('.remove-from-cart-btn').click(app.removeFromCart)
+        $('.articles-quantity').change(app.updateCartLine)
     },
 
     addToCart: function (e) {
@@ -43,7 +44,7 @@ var app = {
 
         console.log(rowToDelete.find('.total-item').val())
 
-        //rowToDelete.remove();
+        rowToDelete.remove();
 
         $.ajax(
             {
@@ -52,13 +53,49 @@ var app = {
                 dataType: "json",
                 data: JSON.stringify(articleId),
             }).done(function (response) {
-        
+                app.updateTotalCart();
             }).fail(function (jqXHR, textStatus, error) {
                 console.log(jqXHR);
                 console.log(textStatus);
                 console.log(error);
             });
     },
+
+    updateCartLine: function (e) {
+        let quantity = $(this).val();
+        let unitPrice = $(this).parent().prev('.item-price').text();
+        let unitPriceToFloat = parseFloat(unitPrice.replace(' €', ''));
+        let currentTotal = $(this).parent().next('.total-item').text()
+        let currentToFloat = parseFloat(currentTotal.replace(' €', ''));
+        let newTotalLine = unitPriceToFloat * quantity;
+        
+        $(this).parent().next('.total-item').html(newTotalLine + ' €');
+
+        app.updateTotalCart();
+
+    },
+
+    updateTotalCart: function () {
+        let currentTotal = $('.total-item'),
+            newTotalArray = []
+
+        currentTotal.each(function (index) {
+            newTotalArray[index] = $(this).text().replace(' €', '');
+        });
+
+        let total = 0;
+        let newArray = $.map(newTotalArray, function (i) {
+            return parseFloat(i, 10);
+        });
+
+        total = newArray.reduce(function (a, b) {
+            return a + b
+        });
+
+        // Replace net total
+        $('.net-total').html(total + ' €');
+
+    }
 }
 
 document.addEventListener('DOMContentLoaded', app.init)
