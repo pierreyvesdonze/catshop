@@ -1,6 +1,17 @@
 {% extends "base.html.twig" %}
 {% block body %}
 
+{# Breadcrumb #}
+<nav>
+    <div class="nav-wrapper">
+        <div class="col s12">
+            <a href="{{ path('homepage') }}" class="breadcrumb">Home</a>
+            <a href="{{ path('articles') }}" class="breadcrumb">Cats</a>
+            <a href="#!" class="breadcrumb">Cart</a>
+        </div>
+    </div>
+</nav>
+
 
 <div class="container">
     <div class="section">
@@ -13,7 +24,7 @@
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Total</th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +48,7 @@
                         <td></td>
                         <td></td>
                         <td class="bold net-total">{{ total }} €</td>
+                        <td><a class="btn btn-medium">Validate</a></td>
                     </tr>
                 </tfoot>
             </table>

@@ -16,10 +16,13 @@ var app = {
         $('.add-to-cart-btn').click(app.addToCart);
         $('.remove-from-cart-btn').click(app.removeFromCart)
         $('.articles-quantity').change(app.updateCartLine)
+        $('.to-top-btn').click(app.scrollToTop)
     },
 
     addToCart: function (e) {
 
+        M.toast({
+            html: 'Cat shopped !', classes: 'rounded'})
         e.preventDefault();
         let articleId = $(this).data('id');
         $.ajax(
@@ -94,7 +97,11 @@ var app = {
 
         // Replace net total
         $('.net-total').html(total + ' €');
+    },
 
+    scrollToTop: function (params) {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
     }
 }
 
