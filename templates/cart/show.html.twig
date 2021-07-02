@@ -47,8 +47,14 @@
                         <td class="bold">Total : </td>
                         <td></td>
                         <td></td>
-                        <td class="bold net-total">{{ total }} €</td>
-                        <td><a class="btn btn-medium">Validate</a></td>
+                        <td class="bold net-total">{{ total|round(2, 'floor') }} €</td>
+                        <td>
+                            {% if app.user %}
+                                <a href="{{ path('order_create', {'id':app.user.id}) }}" class="btn btn-medium">Validate</a>
+                            {% else %} 
+                                <a href="{{ path('app_login') }}" class="btn btn-medium">Validate</a>
+                            {% endif %}
+                        </td>
                     </tr>
                 </tfoot>
             </table>

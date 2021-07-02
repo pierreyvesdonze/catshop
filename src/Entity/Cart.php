@@ -35,16 +35,6 @@ class Cart
      */
     private $articles;
 
-    /**
-     * @ORM\Column(type="smallint")
-     */
-    private $quantity;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $tempUser;
-
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -108,27 +98,4 @@ class Cart
         return $this;
     }
 
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): self
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getTempUser(): ?string
-    {
-        return $this->tempUser;
-    }
-
-    public function setTempUser(?string $tempUser): self
-    {
-        $this->tempUser = $tempUser;
-
-        return $this;
-    }
 }

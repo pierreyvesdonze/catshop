@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
-use App\Entity\Cart;
-use App\Form\WitchSubmitCartType;
+use App\Entity\User;
 use App\Repository\ArticleRepository;
 use App\Repository\CartRepository;
-use App\Repository\WitchFormatRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Uid\Uuid;
 
 class CartController extends AbstractController
 {
@@ -37,9 +33,9 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/cart/show", name="cart_show", methods={"GET","POST"}, options={"expose"=true})
+     * @Route("/cart/show/{id}", name="cart_show", methods={"GET","POST"}, options={"expose"=true})
      */
-    public function showCart() {
+    public function showCart(?User $user) {
 
         $cart = $this->session->get('cart', []);
 

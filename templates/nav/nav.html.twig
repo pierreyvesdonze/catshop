@@ -15,7 +15,13 @@
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="{{ path('articles') }}">Shop</a></li>
-            <li><a href="{{ path('cart_show') }}"><i class="material-icons">shopping_cart</i></a></li>
+            {% if app.user %}
+            <li><a href="{{ path('cart_show', {'id':app.user.id}) }}"><i class="material-icons">shopping_cart</i></a>
+            </li>
+            {% else %}
+            <li><a href="{{ path('cart_show', {'id':'null'}) }}"><i class="material-icons">shopping_cart</i></a>
+            </li>
+            {% endif %}
             <!-- Dropdown Trigger -->
             <li><a class="dropdown-trigger" href="#!" data-target="dropdown-user"><i
                         class="material-icons right">account_circle</i></a></li>
@@ -24,9 +30,13 @@
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
-        <li><a href="{{ path('articles') }}">Shop</a></li>
-        <li><a href="{{ path('cart_show') }}"><i class="material-icons">shopping_cart</i></a></li>
-        <li class="divider"></li>
+    <li><a href="{{ path('articles') }}">Shop</a></li>
+    {% if app.user %}
+    <li><a href="{{ path('cart_show', {'id':app.user.id}) }}"><i class="material-icons">shopping_cart</i></a></li>
+    {% else %}
+    <li><a href="{{ path('cart_show', {'id':'null'}) }}"><i class="material-icons">shopping_cart</i></a></li>
+    {% endif %}
+    <li class="divider"></li>
     {% if app.user %}
     <li><a href="{{ path('user_profile') }}">My account</a></li>
     <li><a href="{{ path('app_logout') }}">Logout</a></li>
