@@ -6,8 +6,8 @@
     <div class="nav-wrapper">
         <div class="col s12">
             <a href="{{ path('homepage') }}" class="breadcrumb">Home</a>
-            <a href="{{ path('articles') }}" class="breadcrumb">Cats</a>
-            <a href="#!" class="breadcrumb">Cart</a>
+            <a href="{{ path('cart_show', {'id':userCart.id}) }}" class="breadcrumb">Cart</a>
+            <a href="#!" class="breadcrumb">Order</a>
         </div>
     </div>
 </nav>
@@ -15,12 +15,80 @@
 
 <div class="container">
     <div class="section">
-        <div class="row">
+        {# Articles #}
+        <div class="col s6">
+            <h2>Your articles</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Article</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set totalPrice = 0 %}
+                    {% for item in userCart.cartlines %}
+                    <tr>
+                        <td>{{ item.article.name }}</td>
+                        <td class="item-price">{{ item.article.price }} €</td>
+                        {% set totalPrice = totalPrice + item.article.price %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="bold">Total : </td>
+                        <td class="bold net-total">{{ totalPrice|round(2, 'floor') }} €</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        {# User infos #}
+        <div class="col s6">
+            <h2 class="light">Delivery address</h2>
             <ul>
-                {% for cartline in userCart.cartlines %}
-                {{ cartline.article.name }}
-                {% endfor %}
+                <li><b>{{ app.user.username }}</b></li>
+                <li>{{ app.user.numberStreetAddress }} {{ app.user.streetAddress }}</li>
+                <li>{{ app.user.postalCode }}</li>
+                <li>{{ app.user.town }}</li>
             </ul>
+            <!-- Modal Triggers -->
+            <a class="waves-effect waves-light btn modal-trigger" href="#modal-address-change">Change</a>
+            <a class="waves-effect waves-light btn modal-trigger" href="#modal-address-add">Add new</a>
+
+            <!-- Modal Structures -->
+            {# Change #}
+            <div id="modal-address-change" class="modal">
+                <div class="modal-content">
+                    <h4>Change delivery address</h4>
+                    <div class="input-field col s12">
+                        <select>
+                            <option value="" disabled selected>Select your address</option>
+                            {% if app.user.deliveryAddresses is not null %}
+                            {% for address in app.user.deliveryAddresses %}
+                            <option value="{{ address.id }}">{{ address.addressTitle }}</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+                        <label>Select an address for delivery</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Dismiss</a>
+                </div>
+            </div>
+
+            {# Add #}
+            <div id="modal-address-add" class="modal">
+                <div class="modal-content">
+                    <h4>Add delivery address</h4>
+                    {{ form(form) }}
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Dismiss</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

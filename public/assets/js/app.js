@@ -7,6 +7,12 @@ var app = {
         // Activate dropdown nav
         $(".dropdown-trigger").dropdown();
 
+        // Open Modal
+        $('.modal').modal();
+
+        // Init formSelect
+        $('select').formSelect();
+
         /**
        * *****************************
        * L I S T E N E R S

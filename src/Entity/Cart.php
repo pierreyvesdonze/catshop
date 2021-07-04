@@ -31,18 +31,12 @@ class Cart
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Article::class)
-     */
-    private $articles;
-
-    /**
-     * @ORM\OneToMany(targetEntity=CartLine::class, mappedBy="cart")
+     * @ORM\OneToMany(targetEntity=CartLine::class, mappedBy="cart", fetch="EAGER")
      */
     private $cartLines;
 
     public function __construct()
     {
-        $this->articles = new ArrayCollection();
         $this->cartLines = new ArrayCollection();
     }
 
@@ -76,30 +70,6 @@ class Cart
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Article[]
-     */
-    public function getArticles(): Collection
-    {
-        return $this->articles;
-    }
-
-    public function addArticle(Article $article): self
-    {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(Article $article): self
-    {
-        $this->articles->removeElement($article);
 
         return $this;
     }

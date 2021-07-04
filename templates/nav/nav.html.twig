@@ -40,7 +40,11 @@
 <ul class="sidenav" id="mobile-demo">
     <li><a href="{{ path('articles') }}">Shop</a></li>
     {% if app.user %}
-    <li><a href="{{ path('cart_show', {'id':app.user.id}) }}"><i class="material-icons">shopping_cart</i></a></li>
+    <li><a href="{{ path('cart_show', {'id':app.user.id}) }}">Cart</a>
+    </li>
+    <li>
+        <a href="{{ path('order_show', {'id':app.user.id}) }}">Order</a>
+    </li>
     {% else %}
     <li><a href="{{ path('cart_show', {'id':'null'}) }}"><i class="material-icons">shopping_cart</i></a></li>
     {% endif %}
