@@ -45,7 +45,7 @@ class OrderController extends AbstractController
 
             $newAddress = new DeliveryAddress;
             $newAddress->setUser($user);
-            $newAddress->setAddressTitle($form->get('title')->getData());
+            $newAddress->setAddressTitle($form->get('addressTitle')->getData());
             $newAddress->setFirstName($form->get('firstName')->getData());
             $newAddress->setLastName($form->get('lastName')->getData());
             $newAddress->setNumberStreet($form->get('numberStreet')->getData());
