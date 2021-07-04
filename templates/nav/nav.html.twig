@@ -9,20 +9,28 @@
     <li><a href="{{ path('new') }}">Register</a></li>
     {% endif %}
 </ul>
+<ul id="dropdown-cart" class="dropdown-content">
+    {% if app.user %}
+    <li><a href="{{ path('cart_show', {'id':app.user.id}) }}">Cart</a>
+    </li>
+    <li>
+        <a href="{{ path('order_show', {'id':app.user.id}) }}">Order</a>
+    </li>
+    {% else %}
+    <li><a href="{{ path('cart_show', {'id':'null'}) }}">Cart</a>
+    </li>
+    {% endif %}
+</ul>
 <nav>
     <div class="nav-wrapper">
         <a href="{{ path('homepage') }}" class="brand-logo"><img src="{{ asset('assets/images/logo-small.png') }}"></a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="{{ path('articles') }}">Shop</a></li>
-            {% if app.user %}
-            <li><a href="{{ path('cart_show', {'id':app.user.id}) }}"><i class="material-icons">shopping_cart</i></a>
-            </li>
-            {% else %}
-            <li><a href="{{ path('cart_show', {'id':'null'}) }}"><i class="material-icons">shopping_cart</i></a>
-            </li>
-            {% endif %}
+
             <!-- Dropdown Trigger -->
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown-cart"><i
+                        class="material-icons right">shopping_cart</i></a></li>
             <li><a class="dropdown-trigger" href="#!" data-target="dropdown-user"><i
                         class="material-icons right">account_circle</i></a></li>
         </ul>

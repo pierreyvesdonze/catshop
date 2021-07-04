@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\CartLine;
 use App\Entity\User;
 use App\Repository\ArticleRepository;
 use App\Repository\CartRepository;
@@ -35,7 +36,7 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/show/{id}", name="cart_show", methods={"GET","POST"}, options={"expose"=true})
      */
-    public function showCart(?User $user) {
+    public function showCart() {
 
         $cart = $this->session->get('cart', []);
 
@@ -74,7 +75,7 @@ class CartController extends AbstractController
 
             $articleId = $request->getContent();
             $cart = $this->session->get('cart', []);
-
+        
             if (!empty($cart[$articleId])) {
                 $cart[$articleId]++;
             } else {
@@ -100,10 +101,50 @@ class CartController extends AbstractController
             if (!empty($cart[$articleId])) {
                 unset($cart[$articleId]);
             }
-
+            
             $this->session->set('cart', $cart);
 
             return new JsonResponse('articleRemoved');
         }
+    }
+
+    /**
+     * @Route("/cart/create/{id}", name="cart_create", methods={"GET","POST"}, options={"expose"=true})
+     */
+    public function cartCreate(
+        User $user,
+        CartRepository $cartRepository,
+        ArticleRepository $articleRepository
+    ) {
+
+        $userCart = $cartRepository->findCurrentCart(false, $user);
+        $tempCart = $this->session->get('cart');
+
+        // Avoid to add multiple times same articles
+        $oldCartLines = $userCart->getCartLines();
+        foreach ($oldCartLines as $cartline) {
+            $userCart->removeCartLine($cartline);
+        }
+
+        $cartArray = [];
+        foreach ($tempCart as $articleId => $quantity) {
+            $articles = $articleRepository->findById($articleId);
+            foreach ($articles as $article) {
+                for ($i = 0; $i < $quantity; $i++) {
+                    $cartArray[] = $article;
+                    $newCartline = new CartLine;
+                    $newCartline->setCart($userCart);
+                    $newCartline->setArticle($article);
+
+                    $this->em->persist($newCartline);
+                }
+            }
+        }
+
+        $this->em->flush();
+
+        return $this->redirectToRoute('order_show', [
+            'id' => $user->getId()
+        ]);
     }
 }

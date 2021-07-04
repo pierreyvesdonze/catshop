@@ -35,9 +35,15 @@ class Cart
      */
     private $articles;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CartLine::class, mappedBy="cart")
+     */
+    private $cartLines;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->cartLines = new ArrayCollection();
     }
 
     public function __toString()
@@ -98,4 +104,33 @@ class Cart
         return $this;
     }
 
+    /**
+     * @return Collection|CartLine[]
+     */
+    public function getCartLines(): Collection
+    {
+        return $this->cartLines;
+    }
+
+    public function addCartLine(CartLine $cartLine): self
+    {
+        if (!$this->cartLines->contains($cartLine)) {
+            $this->cartLines[] = $cartLine;
+            $cartLine->setCart($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartLine(CartLine $cartLine): self
+    {
+        if ($this->cartLines->removeElement($cartLine)) {
+            // set the owning side to null (unless already changed)
+            if ($cartLine->getCart() === $this) {
+                $cartLine->setCart(null);
+            }
+        }
+
+        return $this;
+    }
 }

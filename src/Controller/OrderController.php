@@ -29,29 +29,16 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/order/create/{id}", name="order_create", methods={"GET","POST"}, options={"expose"=true})
+     * @Route("/order/show/{id}", name="order_show", methods={"GET","POST"}, options={"expose"=true})
      */
-    public function orderCreate(
+    public function orderShow(
         User $user,
-        CartRepository $cartRepository,
-        ArticleRepository $articleRepository
+        CartRepository $cartRepository
     ) {
-
         $userCart = $cartRepository->findCurrentCart(false, $user);
-        $tempCart = $this->session->get('cart');
-
-        $cartArray = [];
-        foreach ($tempCart as $articleId => $quantity) {
-            $articles = $articleRepository->findById($articleId);
-            foreach ($articles as $article) {
-                $cartArray[] = $article;
-                dump($quantity);
-            }
-        }
-
-        dump($cartArray);
-        dump($tempCart);
-
-        return $this->render('cart/resume.html.twig', []);
+        
+        return $this->render('cart/resume.html.twig', [
+            'userCart' => $userCart
+        ]);
     }
 }

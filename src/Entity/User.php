@@ -76,6 +76,7 @@ class User implements UserInterface
      */
     private $carts;
 
+
     public function __construct()
     {
         $this->carts = new ArrayCollection();

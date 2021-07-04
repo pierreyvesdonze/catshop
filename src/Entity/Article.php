@@ -44,6 +44,17 @@ class Article
      */
     private $stock;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CartLine::class, mappedBy="article")
+     */
+    private $cartLines;
+
+    public function __construct()
+    {
+        $this->cartLines = new ArrayCollection();
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +116,36 @@ class Article
     public function setStock(int $stock): self
     {
         $this->stock = $stock;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CartLine[]
+     */
+    public function getCartLines(): Collection
+    {
+        return $this->cartLines;
+    }
+
+    public function addCartLine(CartLine $cartLine): self
+    {
+        if (!$this->cartLines->contains($cartLine)) {
+            $this->cartLines[] = $cartLine;
+            $cartLine->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartLine(CartLine $cartLine): self
+    {
+        if ($this->cartLines->removeElement($cartLine)) {
+            // set the owning side to null (unless already changed)
+            if ($cartLine->getArticle() === $this) {
+                $cartLine->setArticle(null);
+            }
+        }
 
         return $this;
     }
