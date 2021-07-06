@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payment{% endblock %}
+
+{% block body %}
+
+{# Breadcrumb #}
+<nav>
+    <div class="nav-wrapper">
+        <div class="col s12">
+            <a href="{{ path('homepage') }}" class="breadcrumb">Home</a>
+            <a href="{{ path('order_show', {'id':app.user.id}) }}" class="breadcrumb">Order</a>
+            <a href="#!" class="breadcrumb">Payment</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="section">
+        <div class="row">
+            {{form(form)}}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

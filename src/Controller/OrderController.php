@@ -3,15 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\DeliveryAddress;
+use App\Entity\Order;
 use App\Entity\User;
 use App\Form\Type\ChangeDeliveryAddressType;
 use App\Form\Type\DeliveryAddressType;
-use App\Repository\ArticleRepository;
+use App\Form\Type\FakeCardType;
 use App\Repository\CartRepository;
 use App\Repository\DeliveryAddressRepository;
+use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,27 +20,31 @@ use Symfony\Component\Routing\Annotation\Route;
 class OrderController extends AbstractController
 {
     private $em;
+    private $session;
 
     public function __construct(
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        SessionInterface $session
     ) {
         $this->em = $em;
+        $this->session = $session;
     }
 
     /**
-     * @Route("/order/show/{id}", name="order_show", methods={"GET","POST"}, options={"expose"=true})
+     * @Route("/order/show/{id}", name="order_show", methods={"GET","POST"})
      */
     public function orderShow(
         User $user,
         CartRepository $cartRepository,
+        DeliveryAddressRepository $deliveryAddressRepository,
         Request $request
     ) {
 
         $userCart = $cartRepository->findCurrentCart(false, $user);
 
+        $deliveryAddress = $deliveryAddressRepository->findOneById($user->getId());
+        
         // Create new Delivery address
-        $deliveryAddress = null;
-
         $form = $this->createForm(DeliveryAddressType::class);
         $form->handleRequest($request);
 
@@ -82,4 +87,65 @@ class OrderController extends AbstractController
             'deliveryAddress' => $deliveryAddress
         ]);
     }
+
+      /**
+     * @Route("/order/create/{id}", name="order_create", methods={"GET","POST"})
+     */
+    public function orderCreate(
+        ?DeliveryAddress $deliveryAddress,
+        CartRepository $cartRepository,
+        OrderRepository $orderRepository,
+        Request $request
+        )
+
+    {
+        $user = $this->getUser();
+        $userCart = $cartRepository->findCurrentCart(false, $user);
+        $order = $orderRepository->findByCurrentCart($userCart->getId());
+
+        if (null == $order) {
+
+            $order = new Order;
+            $order->setCart($userCart);
+            $order->setIsPayed(false);
+            $order->setCreatedAt(new \DateTime('now'));
+            $order->setDeliveryAddress($deliveryAddress);
+            
+            $this->em->persist($order);
+            $this->em->flush();
+        }
+
+        $form = $this->createForm(FakeCardType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $userCart->setIsValid(true);
+            $order->setIsPayed(true);
+
+            $this->em->flush();
+
+            // Clear Session
+            $cart = $this->session->set('cart', []);
+
+            return $this->redirectToRoute('order_confirm', [
+                'id' => $order->getId()
+            ]);
+        }
+
+        return $this->render('order/payment.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+      /**
+     * @Route("/order/confirm/{id}", name="order_confirm")
+     */
+    public function orderConfirm(Order $order)
+    {
+        return $this->render('order/confirm.html.twig', [
+            'order' => $order
+        ]);
+    }
+
 }

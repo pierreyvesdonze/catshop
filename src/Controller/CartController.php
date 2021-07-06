@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Cart;
 use App\Entity\CartLine;
 use App\Entity\User;
 use App\Repository\ArticleRepository;
@@ -121,9 +122,18 @@ class CartController extends AbstractController
         $tempCart = $this->session->get('cart');
 
         // Avoid to add multiple times same articles
-        $oldCartLines = $userCart->getCartLines();
-        foreach ($oldCartLines as $cartline) {
-            $userCart->removeCartLine($cartline);
+        if (null !== $userCart) {
+
+            $oldCartLines = $userCart->getCartLines();
+            foreach ($oldCartLines as $cartline) {
+                $userCart->removeCartLine($cartline);
+            }
+        } else {
+            $userCart = new Cart;
+            $userCart->setIsValid(false);
+            $userCart->setUser($user);
+
+            $this->em->persist($userCart);
         }
 
         $cartArray = [];

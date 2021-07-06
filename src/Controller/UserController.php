@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cart;
+use App\Entity\DeliveryAddress;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\RoleRepository;
@@ -54,9 +55,21 @@ class UserController extends AbstractController
             $cart = new Cart;
             $cart->setIsValid(false);
             $user->addCart($cart);
+
+            // Create delivery address
+            $deliveryAddress = new DeliveryAddress;
+            $deliveryAddress->setFirstName($form->get('firstName')->getData());
+            $deliveryAddress->setLastName($form->get('lastName')->getData());
+            $deliveryAddress->setNumberStreet($form->get('numberStreetAddress')->getData());
+            $deliveryAddress->setStreetName($form->get('streetAddress')->getData());
+            $deliveryAddress->setPostalCode($form->get('postalCode')->getData());
+            $deliveryAddress->setTown($form->get('town')->getData());
+            $deliveryAddress->setAddressTitle($form->get('addressTitle')->getData());
+
             
             $this->em->persist($user);
             $this->em->persist($cart);
+            $this->em->persist($deliveryAddress);
             $this->em->flush();
 
             $this->addFlash('success', 'Welcome' . $user->getUsername() . ', thanks for registration. You can loggin now !');

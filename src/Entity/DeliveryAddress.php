@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DeliveryAddressRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -57,6 +59,16 @@ class DeliveryAddress
      * @ORM\Column(type="string", length=255)
      */
     private $addressTitle;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="deliveryAddress")
+     */
+    private $orders;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -155,6 +167,36 @@ class DeliveryAddress
     public function setAddressTitle(string $addressTitle): self
     {
         $this->addressTitle = $addressTitle;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setDeliveryAddress($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): self
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getDeliveryAddress() === $this) {
+                $order->setDeliveryAddress(null);
+            }
+        }
 
         return $this;
     }

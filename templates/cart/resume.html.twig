@@ -2,7 +2,7 @@
 {% block body %}
 
 {# Breadcrumb #}
-<nav>
+{# <nav>
     <div class="nav-wrapper">
         <div class="col s12">
             <a href="{{ path('homepage') }}" class="breadcrumb">Home</a>
@@ -10,13 +10,14 @@
             <a href="#!" class="breadcrumb">Order</a>
         </div>
     </div>
-</nav>
-
+</nav> #}
 
 <div class="container">
     <div class="section">
         {# Articles #}
         <div class="col s6">
+            {% if userCart is not empty and userCart is not null %}
+
             <h2>Your articles</h2>
             <table class="table">
                 <thead>
@@ -63,15 +64,16 @@
                     {{ deliveryAddress.town }}
                 </li>
             </ul>
-            
+
             {% else %}
-                <ul>
-                    <li><b>{{ app.user.username }}</b></li>
-                    <li>{{ app.user.numberStreetAddress }} {{ app.user.streetAddress }}</li>
-                    <li>{{ app.user.postalCode }}</li>
-                    <li>{{ app.user.town }}</li>
-                </ul>
+            <ul>
+                <li><b>{{ app.user.username }}</b></li>
+                <li>{{ app.user.numberStreetAddress }} {{ app.user.streetAddress }}</li>
+                <li>{{ app.user.postalCode }}</li>
+                <li>{{ app.user.town }}</li>
+            </ul>
             {% endif %}
+
             <!-- Modal Triggers -->
             <a class="waves-effect waves-light btn modal-trigger" href="#modal-address-change">Change</a>
             <a class="waves-effect waves-light btn modal-trigger" href="#modal-address-add">Add new</a>
@@ -82,17 +84,6 @@
                 <div class="modal-content">
                     <h4>Change delivery address</h4>
                     <div class="input-field col s12">
-                        {# <form class="change-delivery-address" method="post" data-user="{{ app.user.id }}">
-                            <select id="delivery-address-change">
-                                <option value="" disabled selected>Select your address</option>
-                                {% if app.user.deliveryAddresses is not null %}
-                                {% for address in app.user.deliveryAddresses %}
-                                <option value="{{ address.id }}">{{ address.addressTitle }}</option>
-                                {% endfor %}
-                                {% endif %}
-                            </select>
-                        </form> #}
-
                         {{form(changeAddressForm)}}
                         <label>Select an address for delivery</label>
                     </div>
@@ -112,7 +103,24 @@
                     <a href="#!" class="modal-close waves-effect waves-green btn-flat">Dismiss</a>
                 </div>
             </div>
+
+            {# Confirm #}
+            <br><br>
+            <li class="divider"></li>
+            <br><br>
+            {% if deliveryAddress is not null %}
+            <a href="{{ path('order_create', {'id':deliveryAddress.id}) }}" class="btn btn-medium waves-effect">Continue
+                to payment</a>
+
+            {% else %}
+            <a href="{{ path('order_create', {'id':'null'}) }}" class="btn btn-medium waves-effect">Continue to
+                payment</a>
+
+            {% endif %}
         </div>
+        {% else %}
+        You have no order for now
+        {% endif %}
     </div>
 </div>
 {% endblock %}

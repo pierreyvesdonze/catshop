@@ -27,6 +27,28 @@ class UserType extends AbstractType
         );
 
         $builder->add(
+            'firstName',
+            TextType::class,
+            [
+                'label' => false,
+                'attr'  => [
+                    'placeholder' => 'Firstname'
+                ]
+            ]
+        );
+
+        $builder->add(
+            'lastName',
+            TextType::class,
+            [
+                'label' => false,
+                'attr'  => [
+                    'placeholder' => 'Lastname'
+                ]
+            ]
+        );
+
+        $builder->add(
             'email',
             EmailType::class,
             [
@@ -56,7 +78,7 @@ class UserType extends AbstractType
                 'required' => true,
                 'label' => false,
                 'attr'  => [
-                    'placeholder' => 'Nom de la rue'
+                    'placeholder' => 'Street Name'
                 ]
             ]
         );
@@ -68,7 +90,7 @@ class UserType extends AbstractType
                 'required' => true,
                 'label' => false,
                 'attr'  => [
-                    'placeholder' => 'N° de la voie'
+                    'placeholder' => 'Street Number'
                 ]
             ]
         );
@@ -80,7 +102,7 @@ class UserType extends AbstractType
                 'required' => true,
                 'label' => false,
                 'attr'  => [
-                    'placeholder' => 'Code postal'
+                    'placeholder' => 'Postal code'
                 ]
             ]
         );
@@ -92,7 +114,19 @@ class UserType extends AbstractType
                 'required' => true,
                 'label' => false,
                 'attr'  => [
-                    'placeholder' => 'Ville'
+                    'placeholder' => 'Town'
+                ]
+            ]
+        );
+
+        $builder->add(
+            'addressTitle',
+            TextType::class,
+            [
+                'required' => true,
+                'label' => false,
+                'attr'  => [
+                    'placeholder' => 'Set a name for your address'
                 ]
             ]
         );
