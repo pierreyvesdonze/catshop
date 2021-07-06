@@ -108,7 +108,9 @@ var app = {
     scrollToTop: function (params) {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
-    }
+    },
+
+  
 }
 
 document.addEventListener('DOMContentLoaded', app.init)

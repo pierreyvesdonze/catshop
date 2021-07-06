@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\DeliveryAddress;
 use App\Entity\User;
+use App\Form\Type\ChangeDeliveryAddressType;
 use App\Form\Type\DeliveryAddressType;
 use App\Repository\ArticleRepository;
 use App\Repository\CartRepository;
+use App\Repository\DeliveryAddressRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,17 +19,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class OrderController extends AbstractController
 {
     private $em;
-    private $session;
-    private $articleRepository;
 
     public function __construct(
-        EntityManagerInterface $em,
-        SessionInterface $session,
-        ArticleRepository $articleRepository
+        EntityManagerInterface $em
     ) {
         $this->em = $em;
-        $this->session = $session;
-        $this->articleRepository = $articleRepository;
     }
 
     /**
@@ -37,6 +34,11 @@ class OrderController extends AbstractController
         CartRepository $cartRepository,
         Request $request
     ) {
+
+        $userCart = $cartRepository->findCurrentCart(false, $user);
+
+        // Create new Delivery address
+        $deliveryAddress = null;
 
         $form = $this->createForm(DeliveryAddressType::class);
         $form->handleRequest($request);
@@ -63,11 +65,21 @@ class OrderController extends AbstractController
             ]);
         }
 
-        $userCart = $cartRepository->findCurrentCart(false, $user);
+        // Update delivery address
+        $changeAddressForm = $this->createForm(ChangeDeliveryAddressType::class);
+
+        $changeAddressForm->handleRequest($request);
+        
+        if ($changeAddressForm->isSubmitted() && $changeAddressForm->isValid()) {
+
+            $deliveryAddress = $changeAddressForm->get('deliveryAddress')->getData();
+        }
 
         return $this->render('cart/resume.html.twig', [
             'userCart' => $userCart,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'changeAddressForm' => $changeAddressForm->createView(),
+            'deliveryAddress' => $deliveryAddress
         ]);
     }
 }

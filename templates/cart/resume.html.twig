@@ -47,12 +47,31 @@
         {# User infos #}
         <div class="col s6">
             <h2 class="light">Delivery address</h2>
+            {% if deliveryAddress is not null %}
+            <h3>{{ deliveryAddress.addressTitle }}</h3>
             <ul>
-                <li><b>{{ app.user.username }}</b></li>
-                <li>{{ app.user.numberStreetAddress }} {{ app.user.streetAddress }}</li>
-                <li>{{ app.user.postalCode }}</li>
-                <li>{{ app.user.town }}</li>
+                <li>
+                    <b>{{ deliveryAddress.firstName ~ ' ' ~ deliveryAddress.lastName }} </b>
+                </li>
+                <li>
+                    {{ deliveryAddress.numberStreet ~ ' ' ~ deliveryAddress.streetName }}
+                </li>
+                <li>
+                    {{ deliveryAddress.postalCode }}
+                </li>
+                <li>
+                    {{ deliveryAddress.town }}
+                </li>
             </ul>
+            
+            {% else %}
+                <ul>
+                    <li><b>{{ app.user.username }}</b></li>
+                    <li>{{ app.user.numberStreetAddress }} {{ app.user.streetAddress }}</li>
+                    <li>{{ app.user.postalCode }}</li>
+                    <li>{{ app.user.town }}</li>
+                </ul>
+            {% endif %}
             <!-- Modal Triggers -->
             <a class="waves-effect waves-light btn modal-trigger" href="#modal-address-change">Change</a>
             <a class="waves-effect waves-light btn modal-trigger" href="#modal-address-add">Add new</a>
@@ -63,14 +82,18 @@
                 <div class="modal-content">
                     <h4>Change delivery address</h4>
                     <div class="input-field col s12">
-                        <select>
-                            <option value="" disabled selected>Select your address</option>
-                            {% if app.user.deliveryAddresses is not null %}
-                            {% for address in app.user.deliveryAddresses %}
-                            <option value="{{ address.id }}">{{ address.addressTitle }}</option>
-                            {% endfor %}
-                            {% endif %}
-                        </select>
+                        {# <form class="change-delivery-address" method="post" data-user="{{ app.user.id }}">
+                            <select id="delivery-address-change">
+                                <option value="" disabled selected>Select your address</option>
+                                {% if app.user.deliveryAddresses is not null %}
+                                {% for address in app.user.deliveryAddresses %}
+                                <option value="{{ address.id }}">{{ address.addressTitle }}</option>
+                                {% endfor %}
+                                {% endif %}
+                            </select>
+                        </form> #}
+
+                        {{form(changeAddressForm)}}
                         <label>Select an address for delivery</label>
                     </div>
                 </div>
