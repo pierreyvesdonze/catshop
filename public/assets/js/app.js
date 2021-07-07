@@ -13,6 +13,9 @@ var app = {
         // Init formSelect
         $('select').formSelect();
 
+        //Init Collapsible
+        $('.collapsible').collapsible();
+
         /**
        * *****************************
        * L I S T E N E R S

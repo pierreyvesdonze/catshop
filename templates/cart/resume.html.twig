@@ -2,15 +2,21 @@
 {% block body %}
 
 {# Breadcrumb #}
-{# <nav>
+<nav>
     <div class="nav-wrapper">
         <div class="col s12">
             <a href="{{ path('homepage') }}" class="breadcrumb">Home</a>
+            {% if userCart %}
+            
             <a href="{{ path('cart_show', {'id':userCart.id}) }}" class="breadcrumb">Cart</a>
+            {% else %}
+            <a href="{{ path('cart_show', {'id':'null'}) }}" class="breadcrumb">Cart</a>
+            
+            {% endif %}
             <a href="#!" class="breadcrumb">Order</a>
         </div>
     </div>
-</nav> #}
+</nav>
 
 <div class="container">
     <div class="section">

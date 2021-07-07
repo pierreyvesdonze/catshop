@@ -30,6 +30,5 @@ class OrderRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
-    }
-    
+    }    
 }

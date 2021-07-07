@@ -106,6 +106,7 @@ class OrderController extends AbstractController
         if (null == $order) {
 
             $order = new Order;
+            $order->setUser($user);
             $order->setCart($userCart);
             $order->setIsPayed(false);
             $order->setCreatedAt(new \DateTime('now'));

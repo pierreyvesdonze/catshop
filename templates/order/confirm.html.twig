@@ -8,9 +8,13 @@
 
 <div class="container">
     <div class="section">
-        <div class="row">
-            THANK YOU
-            {{ dump(order) }}
+        <div class="row center">
+            <h4>
+                THANK YOU FOR YOUR ORDER            
+            </h4>
+            <p class="light">Cats are on you now !</p>
+            <br><br>
+            <a href="{{ path('user_profile', {'id':app.user.id}) }}" class="btn btn-medium waves-effect">View my orders</a>
         </div>
     </div>
 </div>

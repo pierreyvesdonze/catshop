@@ -84,13 +84,11 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/myprofile", name="user_profile", methods={"GET"})
+     * @Route("/myprofile/{id}", name="user_profile", methods={"GET"})
      * @IsGranted("ROLE_USER")
      */
-    public function myProfile(): Response
-    {
-        $user = $this->getUser();
-
+    public function myProfile(User $user): Response
+    {      
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);

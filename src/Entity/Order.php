@@ -40,6 +40,11 @@ class Order
      */
     private $deliveryAddress;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +94,18 @@ class Order
     public function setDeliveryAddress(?DeliveryAddress $deliveryAddress): self
     {
         $this->deliveryAddress = $deliveryAddress;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
