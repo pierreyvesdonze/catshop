@@ -119,18 +119,6 @@ class UserType extends AbstractType
             ]
         );
 
-        $builder->add(
-            'addressTitle',
-            TextType::class,
-            [
-                'required' => true,
-                'label' => false,
-                'attr'  => [
-                    'placeholder' => 'Set a name for your address'
-                ]
-            ]
-        );
-
         $builder->add('password', RepeatedType::class, [
             'type' => PasswordType::class,
             'invalid_message' => 'Les mots de passe doivent correspondre',
