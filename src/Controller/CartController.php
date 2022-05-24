@@ -37,10 +37,9 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/show/{id}", name="cart_show", methods={"GET","POST"}, options={"expose"=true})
      */
-    public function showCart() {
-
+    public function showCart()
+    {
         $cart = $this->session->get('cart', []);
-
         $cartWithData = [];
 
         foreach ($cart as $id => $quantity) {
@@ -55,8 +54,10 @@ class CartController extends AbstractController
         foreach ($cartWithData as $item) {
             $totalItem = $item['article']->getPrice() * $item['quantity'];
             $total += $totalItem;
-        }
 
+            $this->session->set('cart', $cart);
+            // $this->session->clear();
+        }
 
         return $this->render('cart/show.html.twig', [
             'items' => $cartWithData,
@@ -75,8 +76,9 @@ class CartController extends AbstractController
         if ($request->isMethod('POST')) {
 
             $articleId = $request->getContent();
+       
             $cart = $this->session->get('cart', []);
-        
+
             if (!empty($cart[$articleId])) {
                 $cart[$articleId]++;
             } else {
@@ -86,6 +88,33 @@ class CartController extends AbstractController
             $this->session->set('cart', $cart);
 
             return new JsonResponse($cart[$articleId]);
+        }
+    }
+
+    /**
+     * @Route("/cart/update", name="update_cart", methods={"GET","POST"}, options={"expose"=true})
+     */
+    public function updateCart(Request $request)
+    {
+        if ($request->isMethod('POST')) {
+
+            $articleId = $request->getContent('articleId');
+            $articleQuantity = $request->getContent('quantity');
+
+            $cart = $this->session->get('cart', []);
+
+            $cartWithData = [];
+
+            foreach ($cart as $id => $quantity) {
+                $cartWithData[] = [
+                    'article' => $this->articleRepository->find($id),
+                    'quantity' => $quantity
+                ];
+            }
+
+            $this->session->set('cart', ['id' => $articleId, 'quantity' => $articleQuantity]);
+
+            return new JsonResponse($cart);
         }
     }
 
@@ -102,7 +131,7 @@ class CartController extends AbstractController
             if (!empty($cart[$articleId])) {
                 unset($cart[$articleId]);
             }
-            
+
             $this->session->set('cart', $cart);
 
             return new JsonResponse('articleRemoved');

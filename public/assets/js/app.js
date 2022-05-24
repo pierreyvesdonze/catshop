@@ -26,6 +26,7 @@ var app = {
         $('.remove-from-cart-btn').click(app.removeFromCart)
         $('.articles-quantity').change(app.updateCartLine)
         $('.to-top-btn').click(app.scrollToTop)
+        //$('.articles-quantity').on('click', app.updateTotalBackendSession)
     },
 
     addToCart: function (e) {
@@ -80,11 +81,28 @@ var app = {
         let currentTotal = $(this).parent().next('.total-item').text()
         let currentToFloat = parseFloat(currentTotal.replace(' €', ''));
         let newTotalLine = unitPriceToFloat * quantity;
+        let articleId = $(this).data('id');
+        const articlesArray = [articleId, quantity];
+
         
         $(this).parent().next('.total-item').html(newTotalLine + ' €');
+    
+        $.ajax(
+            {
+                url: Routing.generate('update_cart'),
+                method: "POST",
+                dataType: "json",
+                data: articlesArray,
+            }).done(function (response) {
+         
+            }).fail(function (jqXHR, textStatus, error) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(error);
+            });
 
+        // Update total
         app.updateTotalCart();
-
     },
 
     updateTotalCart: function () {
@@ -108,12 +126,36 @@ var app = {
         $('.net-total').html(total + ' €');
     },
 
+    updateTotalBackendSession: function (e) {
+
+        console.log(e.currentTarget.value);
+        let articleQuantity = e.target.value;
+        let articleId = parseInt(e.target.dataset.id);
+
+        let articlesArr = [articleId, articleQuantity]
+
+        $.ajax(
+            {
+                url: Routing.generate('update_cart'),
+                method: "POST",
+                dataType: "json",
+                data: articlesArr,
+            }).done(function (response) {
+      
+            }).fail(function (jqXHR, textStatus, error) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(error);
+            });
+     
+    },
+
+
     scrollToTop: function (params) {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     },
 
-  
 }
 
 document.addEventListener('DOMContentLoaded', app.init)

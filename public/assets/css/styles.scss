@@ -13,6 +13,12 @@ COLORS
     --breadcrumb-current-color: #ff5169;
 }
 
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 /*
 ***********************************
 TEXTS
@@ -80,7 +86,6 @@ BUTTONS
 .btn-small,
 .btn-large {
     background-color: var(--tertiary-color);
-    box-shadow: 3px 3px 4px 3px #000000a6;
     &:hover {
         background-color: var(--tertiary-hover-color);
     }
@@ -130,6 +135,7 @@ CONTAINERS
 
 .page-footer {
     background-color: var(--tertiary-color);
+    margin-top: auto !important;
 }
 
 .flex-cards {
@@ -145,7 +151,7 @@ CONTAINERS
 .article-show {
     display: flex;
     justify-content: space-evenly;
-     @include sm {
+    @include sm {
         flex-direction: column;
     }
     @include xs {
@@ -156,11 +162,11 @@ CONTAINERS
 .article-right,
 .article-left {
     width: 50%;
-     @include sm {
+    @include sm {
         width: 100%;
     }
     @include xs {
-         width: 100%;
+        width: 100%;
     }
 }
 

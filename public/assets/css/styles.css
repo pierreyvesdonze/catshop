@@ -16,6 +16,17 @@ COLORS
   --breadcrumb-current-color: #ff5169;
 }
 
+body {
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 /*
 ***********************************
 TEXTS
@@ -87,8 +98,6 @@ BUTTONS
 .btn-small,
 .btn-large {
   background-color: var(--tertiary-color);
-  -webkit-box-shadow: 3px 3px 4px 3px #000000a6;
-          box-shadow: 3px 3px 4px 3px #000000a6;
 }
 
 .btn:hover,
@@ -144,6 +153,7 @@ CONTAINERS
 
 .page-footer {
   background-color: var(--tertiary-color);
+  margin-top: auto !important;
 }
 
 .flex-cards {
