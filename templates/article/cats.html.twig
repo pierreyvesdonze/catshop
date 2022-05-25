@@ -39,7 +39,10 @@
                                     <span class="card-title activator grey-text text-darken-4">{{ article.price }}
                                         €</span>
                                     <p><a class="btn-floating btn-large waves-effect waves-light add-to-cart-btn" href="#" data-id="{{ article.id }}"><i
-                                            class="material-icons right">shopping_cart</i>Buy now</a></p>
+                                            class="material-icons right">shopping_cart</i>Buy now</a>{% if article.stock == 1 %}
+                                            <span class="last-one">Last one</span>
+                                            {% endif %}</p>
+                                            
                                 </div>
                                 <div class="card-reveal">
                                     <span class="card-title grey-text text-darken-4">{{ article.name }}<i
