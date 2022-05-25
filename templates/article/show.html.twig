@@ -31,11 +31,15 @@
                         necessitatibus velit voluptas sequi a debitis.
                     </p>
                     <p>
+                        {% if article.stock > 0 %}
                         <a class="btn-floating btn-large waves-effect waves-light add-to-cart-btn" href="#"
-                            data-id="{{ article.id }}"><i class="material-icons right">shopping_cart</i>Buy now</a>
-                            {% if article.stock == 1 %} 
-                            <span class="last-one">Last one</span>
-                            {% endif %}
+                            data-id="{{ article.id }}"><i class="material-icons right">shopping_cart</i>Buy now
+                        </a>
+                        {% elseif article.stock == 1 %}
+                        <span class="last-one">Last one</span>
+                        {% else  %}
+                        <span class="out-of-stock">Out of stock</span>
+                        {% endif %}
                     </p>
                     <p class="light">
                         <i class="material-icons left">local_shipping</i>Free worldwide shipping.<br>

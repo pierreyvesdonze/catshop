@@ -11,17 +11,17 @@
                 <h4>Our cats</h4>
                 <div class="row">
                     <p class="light center">
-                        <ul>
-                            <li>
-                                Free worldwide shipping
-                            </li>
-                            <li>
-                                14-days return policy
-                            </li>
-                            <li>
-                                Cat's life warranty
-                            </li>
-                        </ul>
+                    <ul>
+                        <li>
+                            Free worldwide shipping
+                        </li>
+                        <li>
+                            14-days return policy
+                        </li>
+                        <li>
+                            Cat's life warranty
+                        </li>
+                    </ul>
                     </p>
                 </div>
 
@@ -47,11 +47,18 @@
                                             class="material-icons right">more_vert</i></span>
                                     <span class="card-title activator grey-text text-darken-4">{{ article.price }}
                                         €</span>
-                                    <p><a class="btn-floating btn-large waves-effect waves-light add-to-cart-btn" href="#" data-id="{{ article.id }}"><i
-                                            class="material-icons right">shopping_cart</i>Buy now</a>{% if article.stock == 1 %}
-                                            <span class="last-one">Last one</span>
-                                            {% endif %}</p>
-                                            
+                                    <p>
+                                        {% if article.stock > 0 %}
+                                        <a class="btn-floating btn-large waves-effect waves-light add-to-cart-btn" href="#" data-id="{{ article.id }}"><i
+                                                class="material-icons right">shopping_cart</i>Buy now
+                                        </a>
+                                        {% elseif article.stock == 1 %}
+                                        <span class="last-one">Last one</span>
+                                        {% else %}
+                                        <span class="out-of-stock">Out of stock</span>
+                                        {% endif %}
+                                    </p>
+
                                 </div>
                                 <div class="card-reveal">
                                     <span class="card-title grey-text text-darken-4">{{ article.name }}<i
