@@ -26,7 +26,6 @@ class DefaultController extends AbstractController
     public function index(ArticleRepository $articleRepository, Request $request): Response
     {
         $articles = $articleRepository->findBestSellers();    
-        dump($cart = $this->session->get('cart', []));
 
         return $this->render('main/homepage.html.twig', [
             'articles' => $articles
