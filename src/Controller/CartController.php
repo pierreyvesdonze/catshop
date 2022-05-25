@@ -42,22 +42,26 @@ class CartController extends AbstractController
         $cart = $this->session->get('cart', []);
         $cartWithData = [];
 
-        foreach ($cart as $id => $quantity) {
-            $cartWithData[] = [
-                'article' => $this->articleRepository->find($id),
-                'quantity' => $quantity
-            ];
+        if (!empty($cart)) {
+            foreach ($cart as $id => $quantity) {
+                $cartWithData[] = [
+                    'article' => $this->articleRepository->find($id),
+                    'quantity' => $quantity
+                ];
+            }
+
+            $total = 0;
+
+            foreach ($cartWithData as $item) {
+                $totalItem = $item['article']->getPrice() * $item['quantity'];
+                $total += $totalItem;
+
+                $this->session->set('cart', $cart);
+            }
+        } else {
+            $total = 0;
         }
 
-        $total = 0;
-
-        foreach ($cartWithData as $item) {
-            $totalItem = $item['article']->getPrice() * $item['quantity'];
-            $total += $totalItem;
-
-            $this->session->set('cart', $cart);
-            // $this->session->clear();
-        }
 
         return $this->render('cart/show.html.twig', [
             'items' => $cartWithData,
@@ -76,7 +80,7 @@ class CartController extends AbstractController
         if ($request->isMethod('POST')) {
 
             $articleId = $request->getContent();
-       
+
             $cart = $this->session->get('cart', []);
 
             if (!empty($cart[$articleId])) {
