@@ -41,8 +41,8 @@ class CartController extends AbstractController
     {
         $cart = $this->session->get('cart', []);
         $cartWithData = [];
-
-        if (!empty($cart)) {
+        
+        if (!null == $cart['id']) {
             foreach ($cart as $id => $quantity) {
                 $cartWithData[] = [
                     'article' => $this->articleRepository->find($id),
