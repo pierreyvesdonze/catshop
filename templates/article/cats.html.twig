@@ -23,6 +23,22 @@
                             </li>
                         </ul>
                     </p>
+                </div>
+
+                {# FILTERS #}
+                <div class="row">  
+                    <div class="input-field col s4">
+                        <select>
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="1">Cheapest</option>
+                            <option value="2">Expensivest</option>
+                        </select>
+                        <label>Filters</label>
+                    </div>
+                </div>
+
+                {# CATS#}
+                <div class="row">
                     <div class="flex-cards">
                         {% for article in articles %}
                         <div class="custom-col">
