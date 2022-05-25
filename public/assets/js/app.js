@@ -23,16 +23,18 @@ var app = {
        */
 
         $('.add-to-cart-btn').click(app.addToCart);
-        $('.remove-from-cart-btn').click(app.removeFromCart)
-        $('.articles-quantity').change(app.updateCartLine)
-        $('.to-top-btn').click(app.scrollToTop)
+        $('.remove-from-cart-btn').click(app.removeFromCart);
+        $('.articles-quantity').change(app.updateCartLine);
+        $('.to-top-btn').click(app.scrollToTop);
+        $('.search-input').on('keyup', app.searchCat);
         //$('.articles-quantity').on('click', app.updateTotalBackendSession)
     },
 
     addToCart: function (e) {
 
         M.toast({
-            html: 'Cat shopped !', classes: 'rounded'})
+            html: 'Cat shopped !', classes: 'rounded'
+        })
         e.preventDefault();
         let articleId = $(this).data('id');
         $.ajax(
@@ -84,9 +86,9 @@ var app = {
         let articleId = $(this).data('id');
         const articlesArray = [articleId, quantity];
 
-        
+
         $(this).parent().next('.total-item').html(newTotalLine + ' €');
-    
+
         $.ajax(
             {
                 url: Routing.generate('update_cart'),
@@ -94,7 +96,7 @@ var app = {
                 dataType: "json",
                 data: articlesArray,
             }).done(function (response) {
-         
+
             }).fail(function (jqXHR, textStatus, error) {
                 console.log(jqXHR);
                 console.log(textStatus);
@@ -141,20 +143,33 @@ var app = {
                 dataType: "json",
                 data: articlesArr,
             }).done(function (response) {
-      
+
             }).fail(function (jqXHR, textStatus, error) {
                 console.log(jqXHR);
                 console.log(textStatus);
                 console.log(error);
             });
-     
     },
 
-
-    scrollToTop: function (params) {
+    scrollToTop: function () {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     },
+
+    searchCat: function (evt) {
+        evt.preventDefault();
+        let userInput = $('.search-input').val();
+    
+        $('.custom-col').hide();
+        $('.custom-col:contains("' + userInput + '")').show();
+
+        $(window).keydown((event) => {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+            }
+        })
+    }
 
 }
 

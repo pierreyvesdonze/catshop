@@ -24,8 +24,12 @@
 <nav>
     <div class="nav-wrapper">
         <a href="{{ path('homepage') }}" class="brand-logo"><img src="{{ asset('assets/images/logo-small.png') }}"></a>
+
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
+            <li>
+                <input placeholder="Search" class="search-input"/>
+            </li>
             <li><a href="{{ path('articles') }}">Shop</a></li>
 
             <!-- Dropdown Trigger -->
@@ -38,6 +42,9 @@
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
+    <li>
+        <input placeholder="Search" class="search-input"/>
+    </li>
     <li><a href="{{ path('articles') }}">Shop</a></li>
     {% if app.user %}
     <li><a href="{{ path('cart_show', {'id':app.user.id}) }}">Cart</a>
