@@ -267,4 +267,9 @@ input::placeholder {
 .articles-quantity {
   width: 50px !important;
 }
+
+.filter-form {
+  width: 280px;
+  margin: auto;
+}
 /*# sourceMappingURL=styles.css.map */

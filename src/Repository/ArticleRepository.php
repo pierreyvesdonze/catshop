@@ -31,16 +31,19 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-
-    /*
-    public function findOneBySomeField($value): ?Article
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
+    public function findByCheapest()
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->findBy(array(), array('price' => 'ASC'));
     }
-    */
+
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
+    public function findByExpensivest()
+    {
+        return $this->findBy(array(), array('price' => 'DESC'));
+    }
 }
