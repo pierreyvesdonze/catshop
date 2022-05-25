@@ -41,25 +41,23 @@ class CartController extends AbstractController
     {
         $cart = $this->session->get('cart', []);
         $cartWithData = [];
-        
-        if (!null == $cart['id']) {
-            foreach ($cart as $id => $quantity) {
-                $cartWithData[] = [
-                    'article' => $this->articleRepository->find($id),
-                    'quantity' => $quantity
-                ];
-            }
 
-            $total = 0;
+        //$this->session->clear();
 
-            foreach ($cartWithData as $item) {
-                $totalItem = $item['article']->getPrice() * $item['quantity'];
-                $total += $totalItem;
+        foreach ($cart as $id => $quantity) {
+            $cartWithData[] = [
+                'article' => $this->articleRepository->find($id),
+                'quantity' => $quantity
+            ];
+        }
 
-                $this->session->set('cart', $cart);
-            }
-        } else {
-            $total = 0;
+        $total = 0;
+
+        foreach ($cartWithData as $item) {
+            $totalItem = $item['article']->getPrice() * $item['quantity'];
+            $total += $totalItem;
+
+            $this->session->set('cart', $cart);
         }
 
 
@@ -76,7 +74,6 @@ class CartController extends AbstractController
         Request $request
     ): JsonResponse {
 
-        $user = $this->getUser();
         if ($request->isMethod('POST')) {
 
             $articleId = $request->getContent();

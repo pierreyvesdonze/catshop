@@ -32,9 +32,10 @@
                     <tr>
                         <td>{{ item.article.name }}</td>
                         <td class="item-price">{{ item.article.price }} €</td>
-                        <td>
+                        {# <td>
                             <input type="number" class="articles-quantity" name="cart-quantity-line" min="0" max="100" value="{{ item.quantity }}" data-id="{{ item.article.id }}">
-                        </td>
+                        </td> #}
+                        <td>{{ item.quantity }}</td>
                         <td class="total-item">{{ item.article.price * item.quantity }} €</td>
                         <td>
                             <a href="#" class="remove-from-cart-btn" data-id="{{ item.article.id }}"><i class="material-icons">delete_forever</i></a>
