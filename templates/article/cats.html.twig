@@ -47,13 +47,16 @@
                                             class="material-icons right">more_vert</i></span>
                                     <span class="card-title activator grey-text text-darken-4">{{ article.price }}
                                         €</span>
-                                    {% if article.stock > 0 %}
+                                    {% if article.stock > 1 %}
                                     <p>
                                         <a class="btn-floating btn-large waves-effect waves-light add-to-cart-btn"
                                             href="#" data-id="{{ article.id }}"><i
                                                 class="material-icons right">shopping_cart</i>Buy now
                                         </a>
                                         {% elseif article.stock == 1 %}
+                                        <a class="btn-floating btn-large waves-effect waves-light add-to-cart-btn" href="#" data-id="{{ article.id }}"><i
+                                                class="material-icons right">shopping_cart</i>Buy now
+                                        </a>
                                         <span class="last-one">Last one</span>
                                     </p>
                                         {% else %}
